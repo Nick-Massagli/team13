@@ -1,6 +1,3 @@
-// we copied the code after dilligently working at this for 1 hour. We were short on time and manpower. 
-// we have matched our code to the example, checking that everything is right, and our console is telling us that the product is undefined in this page. We are unsure how to proceed.
-
 import { findProductById } from "./productData.mjs";
 import { setLocalStorage } from "./utils.mjs";
 
@@ -15,7 +12,14 @@ export default async function productDetails(productId) {
   document.getElementById("addToCart").addEventListener("click", addToCart);
 }
 function addToCart() {
-  setLocalStorage("so-cart", product);
+  let cartContents = getLocalStorage("so-cart");
+  //check to see if there was anything there
+  if (!cartContents) {
+    cartContents = [];
+  }
+  // then add the current product to the list
+  cartContents.push(product);
+  setLocalStorage("so-cart", cartContents);
 }
 function renderProductDetails() {
   document.querySelector("#productName").innerText = product.Brand.Name;
